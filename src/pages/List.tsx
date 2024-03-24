@@ -1,10 +1,12 @@
 import { Button, Card, Checkbox, Empty, Flex, Input, Menu, MenuProps } from 'antd';
 import { FileDoneOutlined, FileTextOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useState } from 'react';
-import PendingDuties from '../components/List/PendingDuties';
-import DeletedDuties from '../components/List/DeletedDuties';
+import Duties from '../components/Duty/Duties';
+import { DutyStatus } from '../enums/dutyStatus';
+import { ItemType, MenuDividerType, MenuItemType } from 'antd/es/menu/hooks/useItems';
+import { assertNever } from '../utils/never';
 
-const items: MenuProps['items'] = [
+const items: ItemType[] = [
     {
         label: 'Pending',
         key: 'pending',
@@ -28,11 +30,13 @@ const List = () => {
     const getList = () => {
         switch (menu) {
             case 'pending':
-                return <PendingDuties />;
+                return <Duties status={DutyStatus.PENDING} canAdd />;
+            case 'done':
+                return <Duties status={DutyStatus.COMPLETED} />;
             case 'trash':
-                return <DeletedDuties />;
+                return <Duties status={DutyStatus.DELETED} />;
             default:
-                return <span>{menu}</span>;
+                assertNever(menu as never);
         }
     };
 

@@ -1,14 +1,15 @@
-import { Flex, Card, Checkbox, Empty } from 'antd';
-import useFetch from '../../hooks/useFetch';
+import { Card, Flex, Checkbox, Empty } from 'antd';
 import { DutiesData } from '../../types/duty/response';
 
-const DeletedDuties = () => {
-    const { data, error, loading } = useFetch<DutiesData[]>('/duty?deleted=true');
+type ListProps = {
+    data: DutiesData[] | null;
+};
 
+const List = (props: ListProps) => {
     return (
         <>
-            {data?.length ? (
-                data.map(d => (
+            {props.data?.length ? (
+                props.data.map(d => (
                     <Card key={d.id}>
                         <Flex justify='space-between'>
                             {d.name}
@@ -23,4 +24,4 @@ const DeletedDuties = () => {
     );
 };
 
-export default DeletedDuties;
+export default List;
