@@ -1,21 +1,27 @@
 import { useEffect, useState } from 'react';
 import axiosConfig from '../config/axios';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
+import { notifyError } from '../utils/notifications';
 
-const useFetch = <T,>(url: string) => {
+const useFetch = <T,>(url: string, refetch?: boolean) => {
     const [data, setData] = useState<T | null>(null);
-    const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        setLoading(true);
         axiosConfig
             .get(url)
             .then((res: AxiosResponse<T>) => setData(res.data))
-            .catch(() => setError(true))
+            .catch((err: AxiosError) =>
+                notifyError(
+                    'Fetch error',
+                    `There was an error fetching data: ${err.message || 'Unknown error'}`,
+                ),
+            )
             .finally(() => setLoading(false));
-    }, [url]);
+    }, [url, refetch]);
 
-    return { data, error, loading };
+    return { data, loading };
 };
 
 export default useFetch;
