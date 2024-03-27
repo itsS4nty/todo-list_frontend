@@ -1,8 +1,13 @@
 import { Card, Flex, Checkbox, Empty } from 'antd';
 import { DutiesData } from '../../types/duty/response';
+import { DutyStatus } from '../../enums/dutyStatus';
 
 type ListProps = {
     data: DutiesData[] | null;
+    status: DutyStatus;
+    onCheckboxClick?: (id: number) => void;
+    onTrashClick?: (id: number) => void;
+    onRestoreClick?: (id: number) => void;
 };
 
 const List = (props: ListProps) => {
@@ -13,7 +18,7 @@ const List = (props: ListProps) => {
                     <Card key={d.id}>
                         <Flex justify='space-between'>
                             {d.name}
-                            <Checkbox />
+                            <Checkbox checked={props.status === DutyStatus.COMPLETED}  />
                         </Flex>
                     </Card>
                 ))

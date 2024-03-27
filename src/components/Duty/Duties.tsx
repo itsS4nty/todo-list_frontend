@@ -4,18 +4,28 @@ import useDutyFetch from '../../hooks/useDutyFetch';
 import { Flex, Input, Button } from 'antd';
 import List from '../general/List';
 import { DutiesData } from '../../types/duty/response';
+import axiosConfig from '../../config/axios';
 
-type DutiesProps = {
-    status: DutyStatus;
-    canAdd?: boolean;
-};
+type DutiesProps =
+    | {
+          status: Exclude<DutyStatus, DutyStatus.DELETED>;
+          onCheckboxClick: (id: number) => void;
+          onTrashClick: (id: number) => void;
+          canAdd?: boolean;
+      }
+    | {
+          status: DutyStatus.DELETED;
+          canAdd: false;
+          onRestoreClick: (id: number) => void;
+      };
 
 const Duties = (props: DutiesProps) => {
     const { data, error, loading } = useDutyFetch<DutiesData[]>(props.status);
     const [value, setValue] = useState<string>();
 
-    const onClick = () => {
+    const onClickAdd = () => {
         if (!value) return;
+        axiosConfig.post('/duty', { name: value });
         setValue('');
     };
 
@@ -24,10 +34,10 @@ const Duties = (props: DutiesProps) => {
             {props.canAdd && (
                 <Flex gap='middle'>
                     <Input onChange={e => setValue(e.target.value)} value={value} />
-                    <Button onClick={onClick}>Add</Button>
+                    <Button onClick={onClickAdd}>Add</Button>
                 </Flex>
             )}
-            <List data={data} />
+            <List data={data} status={props.status} />
         </>
     );
 };
