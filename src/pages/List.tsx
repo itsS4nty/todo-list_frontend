@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Duties from '../components/Duty/Duties';
 import { DutyStatus } from '../enums/dutyStatus';
 import { ItemType, MenuDividerType, MenuItemType } from 'antd/es/menu/hooks/useItems';
-import { assertNever } from '../utils/never';
 
 const items: ItemType[] = [
     {
@@ -24,21 +23,15 @@ const items: ItemType[] = [
     },
 ];
 
-const List = () => {
-    const [menu, setMenu] = useState('pending');
+type MenuKey = 'pending' | 'done' | 'trash';
+const menuMapping: Record<MenuKey, DutyStatus> = {
+    pending: DutyStatus.PENDING,
+    done: DutyStatus.DONE,
+    trash: DutyStatus.DELETED,
+};
 
-    const getList = () => {
-        switch (menu) {
-            case 'pending':
-                return <Duties status={DutyStatus.PENDING} canAdd />;
-            case 'done':
-                return <Duties status={DutyStatus.COMPLETED} />;
-            case 'trash':
-                return <Duties status={DutyStatus.DELETED} />;
-            default:
-                assertNever(menu as never);
-        }
-    };
+const List = () => {
+    const [menu, setMenu] = useState<MenuKey>('pending');
 
     return (
         <Flex gap='middle' vertical align='center'>
@@ -47,10 +40,10 @@ const List = () => {
                 items={items}
                 mode='horizontal'
                 selectedKeys={[menu]}
-                onClick={e => setMenu(e.key)}
+                onClick={e => setMenu(e.key as MenuKey)}
             />
             <Flex gap='middle' vertical>
-                {getList()}
+                <Duties status={menuMapping[menu]} canAdd={menuMapping[menu] === DutyStatus.PENDING} />
             </Flex>
         </Flex>
     );
