@@ -1,7 +1,8 @@
-import { Card, Flex, Checkbox, Empty, Button } from 'antd';
+import { Card, Flex, Checkbox, Empty, Button, Input } from 'antd';
 import { DutiesData } from '../../types/duty/response';
 import { DutyStatus } from '../../enums/dutyStatus';
-import { RedoOutlined, DeleteOutlined } from '@ant-design/icons';
+import { RedoOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
+import { useState } from 'react';
 
 type ListProps = {
     data: DutiesData[] | null;
@@ -11,13 +12,7 @@ type ListProps = {
     onRestore?: (id: number) => void;
 };
 
-const List = ({
-    data,
-    status,
-    onCheckboxChange: onCheckboxClick,
-    onDelete,
-    onRestore,
-}: ListProps) => {
+const List = ({ data, status, onCheckboxChange, onDelete, onRestore }: ListProps) => {
     const descriptions: Record<DutyStatus, string> = {
         [DutyStatus.DONE]: 'No done duties found',
         [DutyStatus.PENDING]: 'No pending duties found',
@@ -30,12 +25,12 @@ const List = ({
                 data.map(duty => (
                     <Card key={duty.id} style={{ minWidth: 300, width: 'fit-content' }}>
                         <Flex justify='space-between'>
-                            {duty.name}
+                            <span>{duty.name}</span>
                             <Flex gap={8}>
                                 {status !== DutyStatus.DELETED ? (
                                     <Checkbox
                                         checked={status === DutyStatus.DONE}
-                                        onChange={() => onCheckboxClick?.(duty.id)}
+                                        onChange={() => onCheckboxChange?.(duty.id)}
                                     />
                                 ) : (
                                     <Button

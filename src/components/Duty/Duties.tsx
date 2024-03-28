@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { DutyStatus } from '../../enums/dutyStatus';
 import useDutyFetch from '../../hooks/useDutyFetch';
-import { Flex, Input, Button, Spin } from 'antd';
+import { Flex, Input, Button, Spin, Form } from 'antd';
 import List from '../general/List';
 import { DutiesData } from '../../types/duty/response';
 import axiosConfig from '../../config/axios';
@@ -22,7 +22,8 @@ const Duties = ({ status, canAdd }: DutiesProps) => {
 
     const toggleRefetch = () => setTriggerFetch(!triggerFetch);
 
-    const onClickAdd = () => {
+    const submit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         if (!value) {
             notifyError('Name can not be empty.');
             return;
@@ -73,10 +74,12 @@ const Duties = ({ status, canAdd }: DutiesProps) => {
     return (
         <>
             {canAdd && (
-                <Flex gap='middle'>
-                    <Input onChange={e => setValue(e.target.value)} value={value} />
-                    <Button onClick={onClickAdd}>Add</Button>
-                </Flex>
+                <Form onSubmitCapture={submit}>
+                    <Flex gap='middle'>
+                        <Input onChange={e => setValue(e.target.value)} value={value} placeholder='Duty name' required />
+                        <Button htmlType='submit'>Add</Button>
+                    </Flex>
+                </Form>
             )}
             <List
                 data={data}
