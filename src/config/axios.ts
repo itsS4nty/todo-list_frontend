@@ -1,12 +1,12 @@
 import axios from 'axios';
+import { MODE } from './constants';
 
-const mode = import.meta.env.MODE;
 let url = 'http://localhost:3030/';
 
-if (mode === 'staging') url = '';
-else if (mode === 'production') url = '';
-else if (mode === 'alpha') url = '';
-else if (mode === 'demo') url = '';
+if (MODE === 'staging') url = '';
+else if (MODE === 'production') url = '';
+else if (MODE === 'alpha') url = '';
+else if (MODE === 'demo') url = '';
 
 const axiosConfig = axios.create({
     baseURL: url,

@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
 		"jsx": "react-jsx",
-		"target": "ES2022",
-		"module": "ESNext",
+		"target": "esnext",
+		"module": "esnext",
 		"outDir": "./dist",
 		"rootDir": "./src",
 		"strict": true,
@@ -13,8 +13,8 @@
 		"skipLibCheck": true,
 		"declaration": true,
 		"typeRoots": ["./node_modules/@types"],
-		"types": ["node"],
-		"lib": ["ESNext", "DOM"],
+		"types": ["node", "jest"],
+		"lib": ["esnext", "DOM"],
 		"strictNullChecks": true,
 		"noImplicitAny": true
 	},
