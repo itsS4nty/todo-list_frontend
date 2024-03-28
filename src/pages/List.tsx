@@ -1,9 +1,9 @@
-import { Button, Card, Checkbox, Empty, Flex, Input, Menu, MenuProps } from 'antd';
+import { Flex, Menu } from 'antd';
 import { FileDoneOutlined, FileTextOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import Duties from '../components/Duty/Duties';
 import { DutyStatus } from '../enums/dutyStatus';
-import { ItemType, MenuDividerType, MenuItemType } from 'antd/es/menu/hooks/useItems';
+import { ItemType } from 'antd/es/menu/hooks/useItems';
 
 const items: ItemType[] = [
     {
