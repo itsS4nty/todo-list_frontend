@@ -46,7 +46,7 @@ describe('List Component', () => {
             />,
         );
 
-        const firstDutyRestoreButton = screen.getAllByRole('button', { name: /redo/i })[0];
+        const firstDutyRestoreButton = screen.getAllByRole('button', { name: /restore/i })[0];
         fireEvent.click(firstDutyRestoreButton);
 
         expect(mockOnRestore).toHaveBeenCalledWith(mockData[0].id);

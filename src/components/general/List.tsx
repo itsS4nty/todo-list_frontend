@@ -36,6 +36,7 @@ const List = ({ data, status, onCheckboxChange, onDelete, onRestore }: ListProps
                                     <Button
                                         icon={<RedoOutlined />}
                                         onClick={() => onRestore?.(duty.id)}
+                                        aria-label='Restore'
                                     />
                                 )}
                                 <Button
@@ -43,6 +44,7 @@ const List = ({ data, status, onCheckboxChange, onDelete, onRestore }: ListProps
                                     onClick={() =>
                                         onDelete?.(duty.id, status === DutyStatus.DELETED)
                                     }
+                                    aria-label='Delete'
                                 />
                             </Flex>
                         </Flex>
