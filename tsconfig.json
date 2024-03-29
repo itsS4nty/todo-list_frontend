@@ -13,7 +13,7 @@
         "skipLibCheck": true,
         "declaration": true,
         "typeRoots": ["./node_modules/@types"],
-        "types": ["node", "jest", "@testing-library/jest-dom"],
+        "types": ["node", "jest"],
         "lib": ["esnext", "DOM"],
         "strictNullChecks": true,
         "noImplicitAny": true
