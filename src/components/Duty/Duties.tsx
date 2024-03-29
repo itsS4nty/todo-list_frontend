@@ -18,13 +18,13 @@ const Duties = ({ status, canAdd }: DutiesProps) => {
     const { data, loading } = useDutyFetch<DutiesData[]>(status, triggerFetch);
     const [value, setValue] = useState<string>('');
 
-    if (loading) return <Spin />;
+    if(loading) return <Spin />;
 
     const toggleRefetch = () => setTriggerFetch(!triggerFetch);
 
     const submit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (!value) {
+        if(!value) {
             notifyError('Name can not be empty.');
             return;
         }
@@ -76,7 +76,12 @@ const Duties = ({ status, canAdd }: DutiesProps) => {
             {canAdd && (
                 <Form onSubmitCapture={submit}>
                     <Flex gap='middle'>
-                        <Input onChange={e => setValue(e.target.value)} value={value} placeholder='Duty name' required />
+                        <Input
+                            onChange={e => setValue(e.target.value)}
+                            value={value}
+                            placeholder='Duty name'
+                            required
+                        />
                         <Button htmlType='submit'>Add</Button>
                     </Flex>
                 </Form>

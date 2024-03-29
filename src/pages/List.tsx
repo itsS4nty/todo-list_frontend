@@ -34,7 +34,7 @@ const List = () => {
     const [menu, setMenu] = useState<MenuKey>('pending');
 
     return (
-        <Flex gap='middle' vertical align='center' style={{margin: '50px'}}>
+        <Flex gap='middle' vertical align='center' style={{ margin: '50px' }}>
             <h1>ToDo List</h1>
             <Menu
                 items={items}
@@ -43,7 +43,10 @@ const List = () => {
                 onClick={e => setMenu(e.key as MenuKey)}
             />
             <Flex gap='middle' vertical>
-                <Duties status={menuMapping[menu]} canAdd={menuMapping[menu] === DutyStatus.PENDING} />
+                <Duties
+                    status={menuMapping[menu]}
+                    canAdd={menuMapping[menu] === DutyStatus.PENDING}
+                />
             </Flex>
         </Flex>
     );
