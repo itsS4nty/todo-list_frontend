@@ -71,7 +71,7 @@ describe('Duties Component', () => {
         (axiosConfig.delete as jest.Mock).mockResolvedValue({ data: 'Success' });
         render(<Duties status={DutyStatus.PENDING} />);
 
-        const deleteButton = screen.getAllByLabelText('Delete')[0]; // Assuming 'Delete' is visible text on the button
+        const deleteButton = screen.getAllByLabelText('Delete')[0];
         fireEvent.click(deleteButton);
 
         await waitFor(() => expect(axiosConfig.delete).toHaveBeenCalled());
@@ -83,7 +83,7 @@ describe('Duties Component', () => {
         (axiosConfig.put as jest.Mock).mockResolvedValue({ data: 'Success' });
         render(<Duties status={DutyStatus.DELETED} />);
 
-        const restoreButton = screen.getAllByLabelText('Restore')[0]; // Assuming 'Restore' is visible text on the button
+        const restoreButton = screen.getAllByLabelText('Restore')[0];
         fireEvent.click(restoreButton);
 
         await waitFor(() => expect(axiosConfig.put).toHaveBeenCalled());

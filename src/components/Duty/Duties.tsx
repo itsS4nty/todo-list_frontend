@@ -18,13 +18,13 @@ const Duties = ({ status, canAdd }: DutiesProps) => {
     const { data, loading } = useDutyFetch<DutiesData[]>(status, triggerFetch);
     const [value, setValue] = useState<string>('');
 
-    if (loading) return <Spin />;
+    if(loading) return <Spin />;
 
     const toggleRefetch = () => setTriggerFetch(!triggerFetch);
 
     const submit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (!value) {
+        if(!value) {
             notifyError('Name can not be empty.');
             return;
         }
@@ -52,7 +52,7 @@ const Duties = ({ status, canAdd }: DutiesProps) => {
     const handleDelete = (id: number, fullDelete: boolean = false) => {
         deleteDuty(id, fullDelete)
             .then(() => {
-                notifySuccess(`Duty ${fullDelete ? 'permanent' : ''} deleted correctly.`);
+                notifySuccess(`Duty ${fullDelete ? 'permanently' : ''} deleted correctly.`);
                 toggleRefetch();
             })
             .catch((err: AxiosError<string>) => notifyError(err.response?.statusText));
