@@ -79,6 +79,6 @@ In the trash, there is an option to restore the duty. To move the duty back to '
 
 #### Full delete duty
 
-To completely remove the duty, click on the trash can. This will delete it completely and it will no longer be recoverable.
+To completely remove the duty, click on the trash. This will delete it completely and it will no longer be recoverable.
 
 ![Full delete duty](images/full-delete-duty.png)
