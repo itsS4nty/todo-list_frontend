@@ -1,8 +1,7 @@
-import { Card, Flex, Checkbox, Empty, Button, Input } from 'antd';
+import { Card, Flex, Checkbox, Empty, Button } from 'antd';
 import { DutiesData } from '../../types/duty/response';
 import { DutyStatus } from '../../enums/dutyStatus';
-import { RedoOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
-import { useState } from 'react';
+import { RedoOutlined, DeleteOutlined } from '@ant-design/icons';
 
 type ListProps = {
     data: DutiesData[] | null;
@@ -23,7 +22,7 @@ const List = ({ data, status, onCheckboxChange, onDelete, onRestore }: ListProps
         <>
             {data?.length ? (
                 data.map(duty => (
-                    <Card key={duty.id} style={{ minWidth: 300, width: 'fit-content' }}>
+                    <Card key={duty.id} className='duty-card'>
                         <Flex justify='space-between'>
                             <span>{duty.name}</span>
                             <Flex gap={8}>

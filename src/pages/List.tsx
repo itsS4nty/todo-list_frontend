@@ -34,7 +34,7 @@ const List = () => {
     const [menu, setMenu] = useState<MenuKey>('pending');
 
     return (
-        <Flex gap='middle' vertical align='center' style={{ margin: '50px' }}>
+        <Flex gap='middle' vertical align='center' className='main-container'>
             <h1>ToDo List</h1>
             <Menu
                 items={items}

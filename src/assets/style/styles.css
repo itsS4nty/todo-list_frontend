@@ -1,0 +1,10 @@
+.main-container {
+    margin: 50px;
+}
+.add-duty {
+    width: 300px;
+}
+.duty-card {
+    min-width: 300px;
+    width: 'fit-content';
+}

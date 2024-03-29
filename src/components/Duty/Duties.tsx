@@ -74,7 +74,7 @@ const Duties = ({ status, canAdd }: DutiesProps) => {
     return (
         <>
             {canAdd && (
-                <Form onSubmitCapture={submit}>
+                <Form onSubmitCapture={submit} className='add-duty'>
                     <Flex gap='middle'>
                         <Input
                             onChange={e => setValue(e.target.value)}
