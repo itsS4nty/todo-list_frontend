@@ -4,9 +4,9 @@ import useDutyFetch from '../../hooks/useDutyFetch';
 import { Flex, Input, Button, Spin, Form } from 'antd';
 import List from '../general/List';
 import { DutiesData } from '../../types/duty/response';
-import axiosConfig from '../../config/axios';
 import { AxiosError } from 'axios';
 import { notifyError, notifySuccess } from '../../utils/notifications';
+import { createDuty, deleteDuty, updateDuty } from '../../requests/duty';
 
 type DutiesProps = {
     status: DutyStatus;
@@ -18,18 +18,17 @@ const Duties = ({ status, canAdd }: DutiesProps) => {
     const { data, loading } = useDutyFetch<DutiesData[]>(status, triggerFetch);
     const [value, setValue] = useState<string>('');
 
-    if(loading) return <Spin />;
+    if (loading) return <Spin />;
 
     const toggleRefetch = () => setTriggerFetch(!triggerFetch);
 
     const submit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if(!value) {
+        if (!value) {
             notifyError('Name can not be empty.');
             return;
         }
-        axiosConfig
-            .post('/duty', { name: value })
+        createDuty(value)
             .then(() => {
                 notifySuccess('Duty added correctly.');
                 setValue('');
@@ -40,8 +39,7 @@ const Duties = ({ status, canAdd }: DutiesProps) => {
 
     const handleCheckboxChange = (id: number) => {
         const newStatus = status === DutyStatus.PENDING ? DutyStatus.DONE : DutyStatus.PENDING;
-        axiosConfig
-            .put('/duty', { id, status: newStatus })
+        updateDuty(id, newStatus)
             .then(() => {
                 notifySuccess(
                     `Duty ${newStatus === DutyStatus.DONE ? 'completed' : 'uncompleted'}.`,
@@ -52,8 +50,7 @@ const Duties = ({ status, canAdd }: DutiesProps) => {
     };
 
     const handleDelete = (id: number, fullDelete: boolean = false) => {
-        axiosConfig
-            .delete('/duty', { data: { id, fullDelete } })
+        deleteDuty(id, fullDelete)
             .then(() => {
                 notifySuccess(`Duty ${fullDelete ? 'permanent' : ''} deleted correctly.`);
                 toggleRefetch();
@@ -62,8 +59,7 @@ const Duties = ({ status, canAdd }: DutiesProps) => {
     };
 
     const handleRestore = (id: number) => {
-        axiosConfig
-            .put('/duty', { id, status: DutyStatus.PENDING })
+        updateDuty(id, DutyStatus.PENDING)
             .then(() => {
                 notifySuccess('Duty restored correctly.');
                 toggleRefetch();
